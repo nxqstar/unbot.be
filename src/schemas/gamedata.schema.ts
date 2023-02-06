@@ -1,5 +1,6 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import { HydratedDocument } from 'mongoose';
+import { IsNotEmpty, IsDefined } from 'class-validator';
 
 export type GameDataDocument = HydratedDocument<GameData>;
 
@@ -24,9 +25,18 @@ export class GameData {
 export const GameDataSchema = SchemaFactory.createForClass(GameData);
 
 export class GameDataDto {
+  @IsDefined()
   measurement: string;
+
+  @IsDefined()
   timestamp: string;
+
+  @IsDefined()
   application_id: number;
+
+  @IsDefined()
   user_id: number;
+
+  @IsDefined()
   details: object;
 }

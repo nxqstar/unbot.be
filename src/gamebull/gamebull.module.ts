@@ -5,10 +5,16 @@ import { JwtMiddleware } from 'src/middlewares/jwt.middleware';
 import { GamebullController } from './gamebull.controller';
 import { GamebullService } from './gamebull.service';
 import { MongooseModule } from '@nestjs/mongoose';
-import { GameData, GameDataSchema } from 'src/schemas/gamedata.schema';
+import {
+  GameData,
+  GameDataDto,
+  GameDataSchema,
+} from 'src/schemas/gamedata.schema';
 
 @Module({
   imports: [
+    Object,
+    GameDataDto,
     AuthModule,
     MongooseModule.forFeature([
       { name: GameData.name, schema: GameDataSchema },

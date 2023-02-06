@@ -27,11 +27,7 @@ export class JwtMiddleware implements NestMiddleware {
           secret: process.env.JWT_SECRET,
         });
 
-        // Other requests using this middleware can get the parsed value in the
-        // parameter, you can also analyze the parsed value and return res as
-        // above for those that do not match
         req.body._validated = validated;
-        console.log('validated', validated);
       } catch (e) {
         throw new HttpException('Invalid token', HttpStatus.UNAUTHORIZED);
       }

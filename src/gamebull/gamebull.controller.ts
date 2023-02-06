@@ -1,5 +1,7 @@
-import { Controller, Get, Put, Req, Res } from '@nestjs/common';
+import { Controller, Get, Put, Req, Res, Body } from '@nestjs/common';
 import { AuthService } from 'src/auth/auth.service';
+import { GameDataPipe } from 'src/middlewares/gameData.pipe';
+import { GameDataDto } from 'src/schemas/gamedata.schema';
 import { GamebullService } from './gamebull.service';
 
 @Controller('gamebull')
@@ -10,15 +12,13 @@ export class GamebullController {
   ) {}
 
   @Put('metadata')
-  updateMetaData(@Req() request: any) {
-    const body = request.body;
+  updateMetaData(@Body(new GameDataPipe()) body: GameDataDto) {
     this.gamebullService.saveData(body);
     return this.authService.login(body);
   }
 
   @Put('gamedata')
-  updateGameData(@Req() request: any) {
-    const body = request.body;
+  async updateGameData(@Body(new GameDataPipe()) body: GameDataDto) {
     this.gamebullService.updateGameData(body);
   }
 }
